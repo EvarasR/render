@@ -123,6 +123,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
 # ENLACE A TABLA USUARIOS
 AUTHENTICATION_BACKENDS = ['appPis.auth_backends.UsuarioBackend']
 
