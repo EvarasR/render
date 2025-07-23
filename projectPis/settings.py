@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'projectPis.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgresql://postgres:postgres@localhost:5433/render',
         conn_max_age=600
     )
 }
