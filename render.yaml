@@ -1,8 +1,8 @@
 databases:
-  - name: miappdb
+  - name: render_y61u_db
     plan: free
-    databaseName: miappdb
-    user: miappuser
+    databaseName: render_y61u
+    user: render_y61u_user
 
 services:
   - type: web
@@ -10,11 +10,11 @@ services:
     name: projectPis
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn miapp.asgi:application -k uvicorn.workers.UvicornWorker'
+    startCommand: 'python -m gunicorn projectPis.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: miappdb
+          name: render_y61u_db
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
