@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<h2>Evaluaciones de {{ carrera.nombre }}</h2>
+<p><b>Facultad:</b> {{ carrera.codfacultad.nombre }}</p>
+<ul>
+  {% for ev in evaluaciones %}
+    <li>
+      <b>{{ ev.descripcion|default:"(Sin descripción)" }}</b> ({{ ev.fechainicio }} - {{ ev.fechafin }})
+      <a href="{% url 'a_resultados_por_evaluacion' carrera.codfacultad.pk carrera.codcarrera ev.codevaluacion %}">Ver resultados</a>
+    </li>
+  {% empty %}
+    <li>No hay evaluaciones para esta carrera.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'a_carreras' %}">Volver a carreras</a>
+{% endblock %}

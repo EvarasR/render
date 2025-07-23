@@ -1,0 +1,22 @@
+databases:
+  - name: miappdb
+    plan: free
+    databaseName: miappdb
+    user: miappuser
+
+services:
+  - type: web
+    plan: free
+    name: projectPis
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn miapp.asgi:application -k uvicorn.workers.UvicornWorker'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: miappdb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4

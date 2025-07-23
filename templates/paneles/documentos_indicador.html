@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentos del indicador</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <h3>Documentos para el indicador: <strong>{{ indicador.nombre }}</strong></h3>
+
+  <table class="table table-sm mt-3">
+    <thead>
+      <tr>
+        <th>ID doc</th>
+        <th>Descripción</th>
+        <th>¿Multi-período?</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in documentos %}
+        <tr>
+          <td>{{ d.codmedidorelementofund }}</td>
+          <td>{{ d.descripcion }}</td>
+          <td>
+            {% if d.aplicavariosperiodos %}
+              <span class="badge bg-info">Sí</span>
+            {% else %}
+              <span class="badge bg-secondary">No</span>
+            {% endif %}
+          </td>
+          <td>
+            <a href="{% url 'subir_evidencia' d.coddconfiguracionelementofundamentalfuentedeinformaciondocument %}">
+               Subir evidencia
+            </a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">Sin documentos configurados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'docente_panel' %}" class="btn btn-secondary mt-3">Volver</a>
+</body>
+</html>

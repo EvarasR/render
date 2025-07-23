@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <h2>Editar Autoevaluación</h2>
+    {% if error %}<div style="color: red;">{{ error }}</div>{% endif %}
+    <form method="POST">{% csrf_token %}
+        <label for="modelo">Modelo:</label>
+        <select name="codmodelo" id="modelo" required>
+            {% for modelo in modelos %}
+                <option value="{{ modelo.pk }}" {% if modelo.pk == evaluacion.codmodelo %}selected{% endif %}>{{ modelo.nombre }}</option>
+            {% endfor %}
+        </select>
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" rows="2" required>{{ evaluacion.descripcion }}</textarea>
+        <label for="fechainicio">Fecha inicio:</label>
+        <input type="date" name="fechainicio" value="{{ evaluacion.fechainicio }}" required>
+        <label for="fechafin">Fecha fin:</label>
+        <input type="date" name="fechafin" value="{{ evaluacion.fechafin }}" required>
+        <label for="codestado">Estado:</label>
+        <input type="number" name="codestado" value="{{ evaluacion.codestado }}" required>
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <a href="{% url 'listar_evaluaciones' %}">Volver al listado</a>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<h2>Resultados de Calificación</h2>
+<form method="get" id="filtros-form">
+    <label>Facultad:</label>
+    <select name="facultad" id="facultad" onchange="this.form.submit()">
+        <option value="">-- Selecciona Facultad --</option>
+        {% for f in facultades %}
+            <option value="{{ f.codfacultad }}" {% if f.codfacultad|stringformat:"s" == filtro_facultad %}selected{% endif %}>{{ f.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Carrera:</label>
+    <select name="carrera" id="carrera" onchange="this.form.submit()">
+        <option value="">-- Selecciona Carrera --</option>
+        {% for c in carreras %}
+            <option value="{{ c.codcarrera }}" {% if c.codcarrera|stringformat:"s" == filtro_carrera %}selected{% endif %}>{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Evaluación:</label>
+    <select name="evaluacion" id="evaluacion" onchange="this.form.submit()">
+        <option value="">-- Selecciona Evaluación --</option>
+        {% for e in evaluaciones %}
+            <option value="{{ e.codevaluacion }}" {% if e.codevaluacion|stringformat:"s" == filtro_evaluacion %}selected{% endif %}>
+                {{ e.descripcion|default:"Evaluación"|truncatewords:6 }} ({{ e.fechainicio }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Estado:</label>
+    <select name="estado" onchange="this.form.submit()">
+        <option value="todas" {% if filtro_estado == 'todas' %}selected{% endif %}>Todas</option>
+        <option value="proceso" {% if filtro_estado == 'proceso' %}selected{% endif %}>En proceso</option>
+        <option value="terminadas" {% if filtro_estado == 'terminadas' %}selected{% endif %}>Terminadas</option>
+    </select>
+</form>
+
+<div style="display:flex; flex-wrap:wrap; gap:1rem; margin-top: 2rem;">
+    {% for id, cal in agrupado.items %}
+    <div class="card" style="border-left:8px solid {{ cal.color }}; background:#fff; box-shadow:0 1px 8px #ddd; padding:1rem; min-width:260px;">
+        <h3>{{ cal.nombre }}</h3>
+        <p><b>ID Indicador:</b> {{ id }}</p>
+        <p><b>Valor:</b> {{ cal.valor }}</p>
+        <p><b>Escala:</b> <span style="color:{{ cal.color }}">{{ cal.escala }}</span></p>
+        <p>
+            <b>Facultad:</b> {{ cal.nombre_facultad }},<br>
+            <b>Carrera:</b> {{ cal.nombre_carrera }},<br>
+            <b>Evaluación:</b> {{ cal.codevaluacion }}
+        </p>
+    </div>
+    {% empty %}
+    <p>No hay resultados con el filtro seleccionado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

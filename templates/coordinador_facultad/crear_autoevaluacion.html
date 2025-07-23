@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <h2>Crear Autoevaluación para Carrera</h2>
+    {% if error %}<div style="color: red;">{{ error }}</div>{% endif %}
+    <form method="POST">{% csrf_token %}
+        <label for="carrera">Carrera:</label>
+        <select name="codcarrera" id="carrera" required>
+            <option value="">Seleccione...</option>
+            {% for carrera in carreras %}
+                <option value="{{ carrera.codcarrera }}">{{ carrera.nombre }}</option>
+            {% endfor %}
+        </select>
+        <label for="modelo">Modelo:</label>
+        <select name="codmodelo" id="modelo" required>
+            <option value="">Seleccione...</option>
+            {% for modelo in modelos %}
+                <option value="{{ modelo.pk }}">{{ modelo.nombre }}</option>
+            {% endfor %}
+        </select>
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" rows="2" required></textarea>
+        <label for="fechainicio">Fecha inicio:</label>
+        <input type="date" name="fechainicio" required>
+        <label for="fechafin">Fecha fin:</label>
+        <input type="date" name="fechafin" required>
+        <button type="submit">Guardar Evaluación</button>
+    </form>
+    <a href="{% url 'listar_evaluaciones' %}">Volver al listado</a>
+{% endblock %}

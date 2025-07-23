@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historial de Calificaciones del Indicador</title>
+</head>
+<body>
+    <h2>Historial del Indicador</h2>
+    <p><strong>ID Indicador:</strong> {{ indicador.codindicador }}</p>
+    <p><strong>Nombre:</strong> {{ indicador.nombre }}</p>
+
+    {% if calificaciones %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Evaluación</th>
+                    <th>Facultad</th>
+                    <th>Carrera</th>
+                    <th>Valor</th>
+                    <th>Escala</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cal in calificaciones %}
+                    <tr>
+                        <td>{{ cal.evaluacion }}</td>
+                        <td>{{ cal.facultad }}</td>
+                        <td>{{ cal.carrera }}</td>
+                        <td>{{ cal.valor }}</td>
+                        <td>{{ cal.escala }}</td>
+                        <td>{{ cal.fecha }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay registros de calificación para este indicador.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UTB - Panel Principal</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        
+      <div class="sidebar-logo">
+        <h1>Bienvenido, {{ usuario_nombre }}!</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Logo-UTB.jpg/800px-Logo-UTB.jpg" alt="Logo UTB" />
+        <h2>UTB - SAI</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#">Inicio</a>
+        <a href="#">Materias</a>
+        <a href="#">Notas</a>
+        <a href="#">Horario</a>
+        <a href="#">Cerrar sesión</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Bienvenido al Sistema Académico</h1>
+        <p>Consulta tus materias, calificaciones, horarios y más.</p>
+      </header>
+
+      <section class="cards">
+        <div class="card">
+          <h3>Materias actuales</h3>
+          <p>6 registradas</p>
+        </div>
+        <div class="card">
+          <h3>Promedio general</h3>
+          <p>8.7 / 10</p>
+        </div>
+        <div class="card">
+          <h3>Asistencias</h3>
+          <p>95%</p>
+        </div>
+        <div class="card">
+          <h3>Mensajes</h3>
+          <p>2 nuevos</p>
+        </div>
+        <div class="card">
+          <h3>Estado académico</h3>
+          <p>Activo</p>
+        </div>
+      </section>
+      <div class="d-flex flex-wrap justify-content-center">
+        <a href="{% url 'indicador-list' %}" class="btn btn-outline-primary btn-home">Indicadores</a>
+    </div>
+
+      <footer class="dashboard-footer">
+        &copy; 2025 Universidad Técnica de Babahoyo - Sistema Académico UTB
+      </footer>
+    </main>
+
+  </div>
+</body>
+</html>

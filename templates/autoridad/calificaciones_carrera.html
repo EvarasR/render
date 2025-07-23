@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calificaciones por Carrera</title>
+</head>
+<body>
+    <h2>Calificaciones por Carrera</h2>
+    <p><strong>Facultad:</strong> {{ codfacultad }}</p>
+    <p><strong>Carrera:</strong> {{ codcarrera }}</p>
+    <p><strong>Evaluación:</strong> {{ codevaluacion }}</p>
+
+    {% if agrupado %}
+        {% for codindicador, datos in agrupado.items %}
+            <div style="border: 1px solid #888; padding: 10px; margin: 10px;">
+                <p><strong>ID Indicador:</strong> {{ codindicador }}</p>
+                <p><strong>Nombre:</strong> {{ datos.nombre }}</p>
+                <p><strong>Valor:</strong> {{ datos.valor }}</p>
+                <p><strong>Escala:</strong> {{ datos.escala }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay calificaciones disponibles para esta carrera y evaluación.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block contenido %}
+    <h2>{{ mensaje }}</h2>
+    <a href="{% url 'listar_evaluaciones' %}">Volver al listado</a>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  {% load static %}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UTB - Sistema Académico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+</head>
+<body>
+  <main class="login-wrapper">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Logo-UTB.jpg/800px-Logo-UTB.jpg"
+           alt="Logo UTB"
+           class="logo" />
+    </div>
+
+    <h1 class="title">Sistema Académico</h1>
+    <p class="subtitle">Universidad Técnica de Babahoyo</p>
+
+    <form method="post" class="form">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="userid">Usuario:</label>
+    <input type="text" name="userid" id="userid" required />
+  </div>
+
+  <div class="form-group">
+    <label for="clave">Contraseña:</label>
+    <input type="password" name="clave" id="clave" required />
+  </div>
+
+  <button type="submit" class="btn">Iniciar sesión</button>
+
+  <div style="margin-top: 1rem; text-align:center;">
+    <a href="{% url 'registro' %}" class="btn" style="background-color:#059669; margin-top: 0.5rem;">Registrarse</a>
+  </div>
+</form>
+
+    {% if error %}
+      <p class="links" style="color: #f87171;">{{ error }}</p>
+    {% endif %}
+
+    <div class="links">
+      <a href="#">¿Olvidaste tu contraseña?</a><br />
+      <span>¿No tienes acceso? <a href="#">Contacta al soporte</a></span>
+    </div>
+
+    <footer class="footer">
+      &copy; 2025 Universidad Técnica de Babahoyo. Todos los derechos reservados.
+    </footer>
+  </main>
+</body>
+</html>

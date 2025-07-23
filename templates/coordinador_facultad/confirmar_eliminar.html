@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<style>
+.table-utb {
+  width: 100%; border-collapse: collapse; margin-top: 30px; background: #fff; box-shadow: 0 2px 8px #d0e3d5;
+}
+.table-utb th, .table-utb td {
+  padding: 10px 14px; border-bottom: 1px solid #d3eee6; text-align: left;
+}
+.table-utb th {
+  background: #108542; color: #fff; letter-spacing: .5px; font-size: 1.1em;
+}
+.table-utb tr:nth-child(even) { background: #f8fbf7; }
+.table-utb tr:hover { background: #d6ffe1; }
+.btn {
+  display: inline-block; padding: 7px 15px; font-size: 0.95em; text-decoration: none; border-radius: 6px; margin: 1px;
+  border: none; cursor: pointer; transition: background .15s;
+}
+.btn-nuevo { background: #15b370; color: #fff; }
+.btn-nuevo:hover { background: #0e8e52; }
+.btn-editar { background: #ffc107; color: #333; }
+.btn-editar:hover { background: #e3b004; color: #222; }
+.btn-eliminar { background: #dc3545; color: #fff; }
+.btn-eliminar:hover { background: #b52a36; color: #fff; }
+</style>
+<h2>¿Eliminar esta autoevaluación?</h2>
+{% if error %}<div style="color: red;">{{ error }}</div>{% endif %}
+<form method="post">{% csrf_token %}
+    <button class="btn btn-eliminar" type="submit">Sí, eliminar</button>
+    <a class="btn btn-nuevo" href="{% url 'listar_evaluaciones' %}">Cancelar</a>
+</form>
+{% endblock %}

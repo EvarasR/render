@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<h2>Resultados de Evaluación</h2>
+<p><b>Carrera:</b> {{ carrera.nombre }}</p>
+<p><b>Facultad:</b> {{ carrera.codfacultad.nombre }}</p>
+<p><b>Evaluación:</b> {{ evaluacion.descripcion|default:"(Sin descripción)" }}</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:1rem;">
+  {% for res in resultados %}
+    <div class="card" style="border-left:8px solid {{ res.color }}; background:#fff; box-shadow:0 1px 8px #ddd; padding:1rem; min-width:260px;">
+      <h3>{{ res.nombre_indicador }}</h3>
+      <p>ID: {{ res.codindicador }}</p>
+      <p><b>Valor:</b> {{ res.valor }}</p>
+      <p><b>Escala:</b> <span style="color:{{ res.color }}">{{ res.escala }}</span></p>
+    </div>
+  {% empty %}
+    <p>No hay resultados de indicadores para esta evaluación.</p>
+  {% endfor %}
+</div>
+<a href="{% url 'a_evaluaciones_por_carrera' carrera.codfacultad.pk carrera.codcarrera %}">Volver a evaluaciones</a>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<h2>Seleccione una Carrera</h2>
+<div style="display:flex; flex-wrap:wrap; gap:1rem;">
+  {% for carrera in carreras %}
+    <div class="card" style="padding:1rem; border:1px solid #d0d0d0;">
+      <h3>{{ carrera.nombre }}</h3>
+      <p><b>Facultad:</b> {{ carrera.codfacultad.nombre }}</p>
+      <a href="{% url 'a_evaluaciones_por_carrera' carrera.codfacultad.pk carrera.codcarrera %}">Ver evaluaciones</a>
+    </div>
+  {% empty %}
+    <p>No hay carreras registradas.</p>
+  {% endfor %}
+</div>
+{% endblock %}

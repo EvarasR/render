@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calificar Evidencias del Indicador</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f7f7; }
+        .contenedor { max-width: 800px; margin: 30px auto; background: #fff; padding: 25px 35px; border-radius: 16px; box-shadow: 0 3px 20px #0002; }
+        h2 { color: #25783c; margin-bottom: 10px;}
+        .evidencia-card { margin-bottom: 24px; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background: #f9fff7; }
+        .archivo-link { display: block; margin-bottom: 12px; color: #1976d2; text-decoration: none; }
+        .form-calificar { display: flex; gap: 14px; align-items: center; }
+        label { font-weight: bold; color: #444; }
+        input[type="number"] { padding: 4px 10px; width: 100px; border-radius: 8px; border: 1px solid #ddd;}
+        button { background: #25783c; color: #fff; border: none; border-radius: 10px; padding: 8px 20px; font-weight: bold; cursor: pointer;}
+        button:hover { background: #1d5f2c; }
+        .msg { color: green; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+    <h2>Calificar Evidencias del Indicador: {{ indicador.nombre }}</h2>
+    <p><b>Código:</b> {{ indicador.codindicador }}</p>
+    <p><b>Valor máximo:</b> {{ indicador.valor_maximo }}</p>
+
+    {% if messages %}
+        <div class="msg">{% for message in messages %}{{ message }}{% endfor %}</div>
+    {% endif %}
+
+    {% if evidencias %}
+        {% for evidencia in evidencias %}
+            <div class="evidencia-card">
+                <h4>Documento: {{ evidencia.documento.nombre_documento }}</h4>
+                <a class="archivo-link" href="{{ evidencia.archivo.url }}" target="_blank">
+                    Ver archivo: {{ evidencia.archivo.nombre_archivo }}
+                </a>
+                <form class="form-calificar" method="post" action="{% url 'guardar_puntaje' indicador_id=indicador.codindicador %}">
+                    {% csrf_token %}
+                    <!-- Inputs ocultos -->
+                    <input type="hidden" name="codfacultad" value="{{ codfacultad }}">
+                    <input type="hidden" name="codcarrera" value="{{ codcarrera }}">
+                    <input type="hidden" name="codevaluacion" value="{{ codevaluacion }}">
+                    <input type="hidden" name="codmodelo" value="{{ codmodelo }}">
+                    <input type="hidden" name="codcriterio" value="{{ codcriterio }}">
+                    <input type="hidden" name="codsubcriterio" value="{{ codsubcriterio }}">
+                    <input type="hidden" name="codindicador" value="{{ indicador.codindicador }}">
+                    <input type="hidden" name="coddocumento" value="{{ evidencia.documento.coddocumento }}">
+                    <input type="hidden" name="codevidencia" value="{{ evidencia.codevidencia }}">
+                    
+                    <label for="valor_{{ forloop.counter }}">Calificación:</label>
+                    <input type="number" id="valor_{{ forloop.counter }}" name="valor" min="0" max="{{ indicador.valor_maximo }}" step="0.01" required>
+                    <button type="submit">Guardar calificación</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay evidencias disponibles para este indicador.</p>
+    {% endif %}
+</div>
+</body>
+</html>
