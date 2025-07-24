@@ -9,8 +9,10 @@ services:
     plan: free
     name: projectPis
     runtime: python
-    buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn projectPis.asgi:application -k uvicorn.workers.UvicornWorker'
+    buildCommand: |
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: python -m gunicorn projectPis.asgi:application -k uvicorn.workers.UvicornWorker
     envVars:
       - key: DATABASE_URL
         fromDatabase:
